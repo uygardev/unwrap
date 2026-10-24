@@ -38,6 +38,7 @@
       "main.js",
       "clean.js",
       "copy-selection.js",
+      "deepl.js",
       "index.html",
       "style.css",
       "icon.png",

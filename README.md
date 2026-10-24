@@ -16,6 +16,9 @@ Menu bar (¶) options:
 - **Remove All Line Breaks**: everything becomes a single line.
 - **Keep Paragraphs**: wrapped lines are joined, empty lines between paragraphs stay.
 - **Only Remove Styles**: plain text, line breaks untouched.
+- **Send to DeepL after Cleaning**: after ⌃⌘C, the cleaned text also opens in the
+  [DeepL app](https://www.deepl.com/macos-app) through its "Translate with DeepL" service. Unlike DeepL's own
+  ⌘C+C, DeepL always receives the cleaned text.
 - **Also Clean Every ⌘C Copy**: clean every copy automatically. Files, images and passwords copied from
   password managers are never touched.
 - **Open at Login**
