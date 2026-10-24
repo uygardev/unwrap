@@ -4,39 +4,47 @@
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="style.css">
     <title>Paste without Line Breaks</title>
 </head>
 <body>
-<h1>Clipboard watching...</h1>
-<span>Try it!! Copy paragraphs that below and paste it to <a href="https://translate.google.com.tr/">Google Translate</a></span>
-<hr>
+<h1>Paste without Line Breaks</h1>
 <p>
+    The app lives in the menu bar (<strong>&para;</strong> icon). Select text anywhere and press
+    <kbd>&#8963;</kbd><kbd>&#8984;</kbd><kbd>C</kbd> (Control + Command + C) instead of
+    <kbd>&#8984;</kbd><kbd>C</kbd>. The text is copied without styles, line breaks and end-of-line hyphens,
+    ready to paste into a translator. A normal <kbd>&#8984;</kbd><kbd>C</kbd> keeps working as usual.
+</p>
+<p class="note">
+    The first time you use the shortcut, macOS asks you to allow <em>Paste without Line Breaks</em> under
+    System Settings &rsaquo; Privacy &amp; Security &rsaquo; Accessibility. The app needs it only to press
+    <kbd>&#8984;</kbd><kbd>C</kbd> for you.
+</p>
+<h2>Try it</h2>
+<p>Select the paragraphs below, press <kbd>&#8963;</kbd><kbd>&#8984;</kbd><kbd>C</kbd> and paste them into
+    <a href="https://translate.google.com/">Google Translate</a>.</p>
+<blockquote>
     The TC39 committee is comprised of between 50 and about <br>
     100 different people from a broad section of web-invested <br>
     companies, such as browser makers (Mozilla, Google, Apple) <br>
-    and device makers (Samsung, etc). All members of the committee <br>
-    are volunteers, though many of them are employees of <br>
+    and device makers (Samsung, etc). All members of the commit-<br>
+    tee are volunteers, though many of them are employees of <br>
     these companies and so may receive compensation in part for <br>
     their duties on the committee. <br><br>
     TC39 meets generally about every other month, usually for <br>
     about three days, to review work done by members since the <br>
     last meeting, discuss issues, and vote on proposals. Meeting <br>
     locations rotate among member companies willing to host.<br>
-    <strong>All TC39 proposals progress through a five-stage process—</strong><br>
-    of course, since we’re programmers, it’s 0-based!—Stage 0<br>
-    through Stage 4. You can read more about the Stage process<br>
-    here: https://tc39.es/process-document/<br><br>
-    Stage 0 means roughly, someone on TC39 thinks it’s a worthy<br>
-    idea and plans to <strong>champion</strong> and work on it. That means lots<br>
-    of ideas that non-TC39 members “propose,” through informal<br>
-    means such as social media or blog posts, are really “pre-stage<br>
-    <strong>0.” You have to get a TC39 member to champion a proposal for</strong><br>
-    it to be considered “Stage 0” officially.<br><br>
-    Once a proposal reaches “Stage 4” status, it is eligible to be<br>
-    included in the next yearly revision of the language. It can<br>
-    take anywhere from several months to a few years for a<br>
-    proposal to work its way through these stages.<br>
-    All proposals are managed in the open, on TC39’s Github<br>
-</p>
+    <strong>All TC39 proposals progress through a five-stage process&mdash;</strong><br>
+    of course, since we&rsquo;re programmers, it&rsquo;s 0-based!&mdash;Stage 0<br>
+    through Stage 4.
+</blockquote>
+<h2>Menu bar options</h2>
+<ul>
+    <li><strong>Remove All Line Breaks</strong> &ndash; everything becomes one line.</li>
+    <li><strong>Keep Paragraphs</strong> &ndash; wrapped lines are joined, empty lines between paragraphs stay.</li>
+    <li><strong>Only Remove Styles</strong> &ndash; plain text, line breaks untouched.</li>
+    <li><strong>Also Clean Every &#8984;C Copy</strong> &ndash; the old behaviour: every copy is cleaned automatically.</li>
+</ul>
 </body>
 </html>

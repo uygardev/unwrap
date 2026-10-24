@@ -1,11 +1,13 @@
 {
   "name": "paste-without-line-breaks",
-  "version": "1.0.0",
+  "productName": "Paste without Line Breaks",
+  "version": "2.0.0",
   "description": "It converts text in clipboard to plain text without line breaks for Windows and OSX so that text translators such as google translate can better translate the texts.",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "test": "node --test",
+    "dist": "electron-builder --mac"
   },
   "repository": {
     "type": "git",
@@ -25,17 +27,42 @@
   },
   "homepage": "https://github.com/uygaraydin/paste-without-line-breaks#readme",
   "devDependencies": {
-    "electron": "^19.0.4"
+    "electron": "^45.0.0",
+    "electron-builder": "^26.18.0"
   },
   "build": {
-    "appId": "com.my-website.my-app",
+    "appId": "com.uygaraydin.paste-without-line-breaks",
     "productName": "Paste without Line Breaks",
-    "copyright": "Copyright © 2022",
+    "copyright": "Copyright © 2022-2026 Uygar Aydin",
+    "files": [
+      "main.js",
+      "clean.js",
+      "copy-selection.js",
+      "index.html",
+      "style.css",
+      "icon.png",
+      "assets/**"
+    ],
     "mac": {
-      "icon": "./icon.png",
+      "category": "public.app-category.productivity",
+      "icon": "icon.icns",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "universal"
+          ]
+        }
+      ],
+      "identity": "-",
+      "hardenedRuntime": false,
       "extendInfo": {
         "LSUIElement": true
       }
+    },
+    "dmg": {
+      "title": "Paste without Line Breaks",
+      "artifactName": "Paste-without-Line-Breaks-${version}.dmg"
     }
   }
 }
