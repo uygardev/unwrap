@@ -80,12 +80,18 @@ function cleanText (text, mode = MODES.SINGLE_LINE) {
   const normalized = normalize(text)
 
   if (mode === MODES.PARAGRAPHS) {
-    // One line per paragraph, plus an empty line before every heading except the first block.
-    return splitBlocks(normalized)
+    // One line per paragraph or heading, with an empty line between blocks; a heading stays right
+    // above the paragraph it introduces.
+    const blocks = splitBlocks(normalized)
       .map((block) => ({ ...block, text: cleanBlock(block.text) }))
       .filter((block) => block.text)
-      .map((block, i) => (i > 0 && block.heading ? '\n' : '') + block.text)
-      .join('\n')
+    return blocks
+      .map((block, i) => {
+        if (i === 0) return block.text
+        const afterHeading = blocks[i - 1].heading && !block.heading
+        return (afterHeading ? '\n' : '\n\n') + block.text
+      })
+      .join('')
   }
 
   return cleanBlock(normalized)

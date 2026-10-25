@@ -34,8 +34,9 @@ Menu bar (¶) options:
 
 - **Remove All Line Breaks**: everything becomes a single line.
 - **Keep Paragraphs and Headings**: wrapped lines are joined, every heading and paragraph stays on its own
-  line, with an empty line before each heading. In PDFs, a paragraph ends at a clearly short line ending with
-  `.` `!` `?` or `:`; headings are short lines like `4.7.1 Treatment and Follow-up Support`.
+  line, with an empty line after each paragraph (a heading stays right above its paragraph). In PDFs, a
+  paragraph ends at a clearly short line ending with `.` `!` `?` or `:`; headings are short lines like
+  `4.7.1 Treatment and Follow-up Support`.
 - **Only Remove Styles**: plain text, line breaks untouched.
 - **Also Clean Every ⌘C Copy**: clean every copy automatically. Files, images and passwords copied from
   password managers are never touched.

@@ -23,10 +23,10 @@ test('removes soft hyphens, zero width spaces and ligatures', () => {
 
 test('keeps blank-line paragraph breaks in paragraphs mode', () => {
   const input = 'First line\nof paragraph one.\n\n  \nSecond para-\ngraph\nhere.\n'
-  assert.equal(cleanText(input, MODES.PARAGRAPHS), 'First line of paragraph one.\nSecond paragraph here.')
+  assert.equal(cleanText(input, MODES.PARAGRAPHS), 'First line of paragraph one.\n\nSecond paragraph here.')
 })
 
-test('finds headings and paragraph ends in text copied from a PDF, with an empty line before headings', () => {
+test('finds headings and paragraphs in text copied from a PDF, with an empty line between them', () => {
   const input = [
     '4.7 RQ2. Effectiveness of Computational Techniques',
     'RQ2 investigates how various machine learning, deep learning, and other computa-',
@@ -56,6 +56,7 @@ test('finds headings and paragraph ends in text copied from a PDF, with an empty
       'depression, a limited number of studies focused on predicting the severity of psychiatric conditions or ' +
       'forecasting their future course and recurrence. These studies were generally based on regression models ' +
       'or long-term monitoring systems.',
+    '',
     'Among the reviewed studies, only Hall et al. [93] focused on supporting treatment. Additionally, this was ' +
       'the sole example of a study on psychotic disorders, in which participants\u2019 video recordings were obtained.'
   ].join('\n'))
