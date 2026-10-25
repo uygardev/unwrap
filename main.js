@@ -3,7 +3,7 @@ const { app, BrowserWindow, Menu, Tray, clipboard, shell, systemPreferences } = 
 const fs = require('fs')
 const path = require('path')
 const { MODES, cleanText } = require('./clean')
-const { sendToDeepL } = require('./deepl')
+const { sendToDeepL, isDeepLInstalled, deeplWebUrl } = require('./deepl')
 
 const isMac = process.platform === 'darwin'
 
@@ -84,9 +84,20 @@ function flashTray (title) {
   setTimeout(() => tray && tray.setTitle(''), 1200)
 }
 
+// First preferred system language that is not English, so "en-TR, tr-TR" translates into Turkish.
+function translationTarget () {
+  const languages = app.getPreferredSystemLanguages().map((language) => language.split('-')[0].toLowerCase())
+  return languages.find((language) => language !== 'en') || 'en'
+}
+
 // DeepL's service drops line breaks. They are put back by pasting the clipboard into the DeepL window,
 // which needs the Accessibility permission; without it DeepL still gets the text on one line.
+// Without the DeepL app, the text opens in DeepL's web translator instead.
 async function translateWithDeepL (cleaned) {
+  if (!(await isDeepLInstalled())) {
+    await shell.openExternal(deeplWebUrl(cleaned, translationTarget()))
+    return
+  }
   const paste = cleaned.includes('\n') && isAccessibilityTrusted(true)
   if (!(await sendToDeepL(cleaned, { paste }))) shell.beep()
 }

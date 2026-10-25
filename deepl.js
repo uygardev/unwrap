@@ -68,4 +68,27 @@ const sendToDeepL = (text, { paste = false } = {}) => new Promise((resolve) => {
   child.stdin.end(text)
 })
 
-module.exports = { sendToDeepL }
+const INSTALLED_SCRIPT = `
+ObjC.import('AppKit')
+function run () {
+  const url = $.NSWorkspace.sharedWorkspace.URLForApplicationWithBundleIdentifier($('com.linguee.DeepLCopyTranslator'))
+  return url.isNil() ? 'missing' : 'installed'
+}
+`
+
+const isDeepLInstalled = () => new Promise((resolve) => {
+  execFile('osascript', ['-l', 'JavaScript', '-e', INSTALLED_SCRIPT], { timeout: 5000 }, (error, stdout) => {
+    resolve(!error && stdout.trim() === 'installed')
+  })
+})
+
+// DeepL's web translator reads "#<source>/<target>/<text>" and keeps line breaks. "\", "/" and "|" separate
+// the parts, so they are escaped with a backslash. DeepL detects the source language itself; the source code
+// only has to differ from the target.
+function deeplWebUrl (text, targetLanguage) {
+  const escaped = text.replace(/[\\/|]/g, (ch) => '\\' + ch)
+  const source = targetLanguage === 'en' ? 'de' : 'en'
+  return `https://www.deepl.com/translator#${source}/${targetLanguage}/${encodeURIComponent(escaped)}`
+}
+
+module.exports = { sendToDeepL, isDeepLInstalled, deeplWebUrl }

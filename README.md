@@ -14,6 +14,8 @@ Select text anywhere (Preview, Safari, Chrome, Acrobat, …), right-click it and
   [DeepL app](https://www.deepl.com/macos-app). DeepL's own service removes all line breaks, so when the text
   keeps paragraphs or headings, the app brings DeepL to the front and pastes the text again with ⌘A ⌘V. That
   step needs the Accessibility permission (asked the first time); without it DeepL gets the text on one line.
+  Without the DeepL app, the cleaned text opens in DeepL's web translator in your browser instead (line breaks
+  kept, translated into your first non-English system language).
 
 Depending on the app, the items are either directly in the menu or under **Services**. Copying needs no extra
 permission. If they don't show up right after installing, open the app once, or log out and back in. You can turn
