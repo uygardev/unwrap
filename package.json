@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/uygaraydin/paste-without-line-breaks.git"
+    "url": "git+https://github.com/uygardev/paste-without-line-breaks.git"
   },
   "keywords": [
     "paste",
@@ -25,9 +25,9 @@
   "author": "Uygar Aydin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/uygaraydin/paste-without-line-breaks/issues"
+    "url": "https://github.com/uygardev/paste-without-line-breaks/issues"
   },
-  "homepage": "https://github.com/uygaraydin/paste-without-line-breaks#readme",
+  "homepage": "https://github.com/uygardev/paste-without-line-breaks#readme",
   "devDependencies": {
     "electron": "^45.0.0",
     "electron-builder": "^26.18.0",
