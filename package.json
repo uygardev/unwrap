@@ -1,13 +1,14 @@
 {
   "name": "paste-without-line-breaks",
-  "productName": "Paste without Line Breaks",
+  "productName": "Unwrap",
   "version": "2.0.0",
   "description": "It converts text in clipboard to plain text without line breaks for Windows and OSX so that text translators such as google translate can better translate the texts.",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "test": "node --test",
-    "dist": "electron-builder --mac"
+    "build:native": "node scripts/build-native.js",
+    "dist": "npm run build:native && electron-builder --mac"
   },
   "repository": {
     "type": "git",
@@ -28,21 +29,23 @@
   "homepage": "https://github.com/uygaraydin/paste-without-line-breaks#readme",
   "devDependencies": {
     "electron": "^45.0.0",
-    "electron-builder": "^26.18.0"
+    "electron-builder": "^26.18.0",
+    "node-gyp": "^12.4.0"
   },
   "build": {
     "appId": "com.uygaraydin.paste-without-line-breaks",
-    "productName": "Paste without Line Breaks",
+    "productName": "Unwrap",
     "copyright": "Copyright © 2022-2026 Uygar Aydin",
     "files": [
       "main.js",
       "clean.js",
-      "copy-selection.js",
       "deepl.js",
       "index.html",
       "style.css",
       "icon.png",
-      "assets/**"
+      "assets/**",
+      "native/index.js",
+      "native/macos_services.node"
     ],
     "mac": {
       "category": "public.app-category.productivity",
@@ -58,12 +61,44 @@
       "identity": "-",
       "hardenedRuntime": false,
       "extendInfo": {
-        "LSUIElement": true
+        "LSUIElement": true,
+        "NSServices": [
+          {
+            "NSMenuItem": {
+              "default": "Copy without Line Breaks"
+            },
+            "NSMessage": "handleService",
+            "NSPortName": "PasteWithoutLineBreaks",
+            "NSSendTypes": [
+              "NSStringPboardType"
+            ],
+            "NSUserData": "copy",
+            "NSRequiredContext": {},
+            "NSKeyEquivalent": {
+              "default": "C"
+            }
+          },
+          {
+            "NSMenuItem": {
+              "default": "Translate with DeepL without Line Breaks"
+            },
+            "NSMessage": "handleService",
+            "NSPortName": "PasteWithoutLineBreaks",
+            "NSSendTypes": [
+              "NSStringPboardType"
+            ],
+            "NSUserData": "deepl",
+            "NSRequiredContext": {}
+          }
+        ]
       }
     },
     "dmg": {
-      "title": "Paste without Line Breaks",
-      "artifactName": "Paste-without-Line-Breaks-${version}.dmg"
-    }
+      "title": "Unwrap",
+      "artifactName": "Unwrap-${version}.dmg"
+    },
+    "asarUnpack": [
+      "native/*.node"
+    ]
   }
 }

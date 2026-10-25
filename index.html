@@ -5,23 +5,27 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <link rel="stylesheet" href="style.css">
-    <title>Paste without Line Breaks</title>
+    <title>Unwrap</title>
 </head>
 <body>
-<h1>Paste without Line Breaks</h1>
+<h1>Unwrap</h1>
 <p>
-    The app lives in the menu bar (<strong>&para;</strong> icon). Select text anywhere and press
-    <kbd>&#8963;</kbd><kbd>&#8984;</kbd><kbd>C</kbd> (Control + Command + C) instead of
+    The app lives in the menu bar (<strong>&para;</strong> icon). Select text anywhere, right-click it and choose
+    <strong>Copy without Line Breaks</strong> or <strong>Translate with DeepL without Line Breaks</strong>
+    (in some apps they are under <strong>Services</strong>).
+</p>
+<p>
+    Or select text and press <kbd>&#8679;</kbd><kbd>&#8984;</kbd><kbd>C</kbd> (Shift + Command + C) instead of
     <kbd>&#8984;</kbd><kbd>C</kbd>. The text is copied without styles, line breaks and end-of-line hyphens,
     ready to paste into a translator. A normal <kbd>&#8984;</kbd><kbd>C</kbd> keeps working as usual.
 </p>
 <p class="note">
-    The first time you use the shortcut, macOS asks you to allow <em>Paste without Line Breaks</em> under
-    System Settings &rsaquo; Privacy &amp; Security &rsaquo; Accessibility. The app needs it only to press
-    <kbd>&#8984;</kbd><kbd>C</kbd> for you.
+    In apps that have their own <kbd>&#8679;</kbd><kbd>&#8984;</kbd><kbd>C</kbd>, that one wins; use the right-click
+    menu there. You can change the shortcut in System Settings &rsaquo; Keyboard &rsaquo; Keyboard Shortcuts &rsaquo;
+    Services &rsaquo; Text.
 </p>
 <h2>Try it</h2>
-<p>Select the paragraphs below, press <kbd>&#8963;</kbd><kbd>&#8984;</kbd><kbd>C</kbd> and paste them into
+<p>Select the paragraphs below, right-click &rsaquo; <strong>Copy without Line Breaks</strong> and paste them into
     <a href="https://translate.google.com/">Google Translate</a>.</p>
 <blockquote>
     The TC39 committee is comprised of between 50 and about <br>
@@ -42,10 +46,9 @@
 <h2>Menu bar options</h2>
 <ul>
     <li><strong>Remove All Line Breaks</strong> &ndash; everything becomes one line.</li>
-    <li><strong>Keep Paragraphs</strong> &ndash; wrapped lines are joined, empty lines between paragraphs stay.</li>
+    <li><strong>Keep Paragraphs and Headings</strong> &ndash; wrapped lines are joined, every heading and
+        paragraph stays on its own line, with an empty line before each heading.</li>
     <li><strong>Only Remove Styles</strong> &ndash; plain text, line breaks untouched.</li>
-    <li><strong>Send to DeepL after Cleaning</strong> &ndash; after <kbd>&#8963;</kbd><kbd>&#8984;</kbd><kbd>C</kbd>
-        the cleaned text also opens in the DeepL app.</li>
     <li><strong>Also Clean Every &#8984;C Copy</strong> &ndash; the old behaviour: every copy is cleaned automatically.</li>
 </ul>
 </body>

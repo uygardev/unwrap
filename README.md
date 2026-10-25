@@ -1,24 +1,42 @@
-# Paste without Line Breaks
+# Unwrap
 
 A small menu bar app that copies text (for example from a PDF) as plain text without styles, line breaks and
 end-of-line hyphens, so that translators such as Google Translate can translate it properly.
 
 ## Usage
 
-Select text anywhere and press **⌃⌘C** (Control + Command + C). The selection is copied and cleaned in one step;
-a normal ⌘C keeps working as usual. If ⌃⌘C is taken by another app, ⌃⌥⌘C is used instead (the menu shows which).
+### Right-click menu
 
-The first time, macOS asks for **Accessibility** access (System Settings › Privacy & Security › Accessibility).
-The app needs it only to press ⌘C for you.
+Select text anywhere (Preview, Safari, Chrome, Acrobat, …), right-click it and choose:
+
+- **Copy without Line Breaks**: the cleaned text is put on the clipboard, ready to paste.
+- **Translate with DeepL without Line Breaks**: the cleaned text is also opened in the
+  [DeepL app](https://www.deepl.com/macos-app). DeepL's own service removes all line breaks, so when the text
+  keeps paragraphs or headings, the app brings DeepL to the front and pastes the text again with ⌘A ⌘V. That
+  step needs the Accessibility permission (asked the first time); without it DeepL gets the text on one line.
+
+Depending on the app, the items are either directly in the menu or under **Services**. Copying needs no extra
+permission. If they don't show up right after installing, open the app once, or log out and back in. You can turn
+them off, or give them your own keyboard shortcut, in System Settings › Keyboard › Keyboard Shortcuts › Services ›
+Text.
+
+### Keyboard shortcut
+
+Select text and press **⇧⌘C** (Shift + Command + C) to run **Copy without Line Breaks**; a normal ⌘C keeps
+working as usual. It is a Services shortcut, so it needs no permission, and in apps that have their own ⇧⌘C
+(for example Word's Copy Formatting) that one keeps working and Unwrap stays out of the way. ⌃⌘C is deliberately
+not used: DeepL takes it for DeepL Write.
+
+You can change it, or add one for **Translate with DeepL without Line Breaks**, in System Settings › Keyboard ›
+Keyboard Shortcuts › Services › Text.
 
 Menu bar (¶) options:
 
 - **Remove All Line Breaks**: everything becomes a single line.
-- **Keep Paragraphs**: wrapped lines are joined, empty lines between paragraphs stay.
+- **Keep Paragraphs and Headings**: wrapped lines are joined, every heading and paragraph stays on its own
+  line, with an empty line before each heading. In PDFs, a paragraph ends at a clearly short line ending with
+  `.` `!` `?` or `:`; headings are short lines like `4.7.1 Treatment and Follow-up Support`.
 - **Only Remove Styles**: plain text, line breaks untouched.
-- **Send to DeepL after Cleaning**: after ⌃⌘C, the cleaned text also opens in the
-  [DeepL app](https://www.deepl.com/macos-app) through its "Translate with DeepL" service. Unlike DeepL's own
-  ⌘C+C, DeepL always receives the cleaned text.
 - **Also Clean Every ⌘C Copy**: clean every copy automatically. Files, images and passwords copied from
   password managers are never touched.
 - **Open at Login**
@@ -28,12 +46,12 @@ hyphens, zero width spaces and PDF ligatures (`ﬁ` → `fi`).
 
 ## Install
 
-Open `Paste-without-Line-Breaks-<version>.dmg` and drag the app to Applications. The app is not notarized, so if
+Open `Unwrap-<version>.dmg` and drag the app to Applications. The app is not notarized, so if
 macOS refuses to open a DMG downloaded from the internet, either choose **Open Anyway** in System Settings ›
 Privacy & Security, or run:
 
 ```bash
-xattr -dr com.apple.quarantine "/Applications/Paste without Line Breaks.app"
+xattr -dr com.apple.quarantine "/Applications/Unwrap.app"
 ```
 
 ## Development
@@ -42,7 +60,9 @@ xattr -dr com.apple.quarantine "/Applications/Paste without Line Breaks.app"
 npm install
 npm start      # run from source
 npm test       # cleaning rules
-npm run dist   # build dist/Paste-without-Line-Breaks-<version>.dmg (universal: Apple Silicon + Intel)
+npm run build:native   # compile the Services menu module (native/), needed once before npm start
+npm run dist   # build dist/Unwrap-<version>.dmg (universal: Apple Silicon + Intel)
 ```
 
-After a rebuild, macOS may ask for the Accessibility permission again because the app is ad-hoc signed.
+After a rebuild, macOS may ask for the Accessibility permission (used only for DeepL) again because the app
+is ad-hoc signed.

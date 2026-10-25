@@ -2,7 +2,7 @@
 
 const MODES = {
   SINGLE_LINE: 'single-line', // join everything into one line
-  PARAGRAPHS: 'paragraphs', // join wrapped lines, keep blank-line paragraph breaks
+  PARAGRAPHS: 'paragraphs', // join wrapped lines, keep one line per paragraph and heading
   PLAIN: 'plain' // only drop styles, keep the text as it is
 }
 
@@ -33,20 +33,62 @@ const joinHyphenatedWords = (text) => text
 
 const collapseWhitespace = (text) => text.replace(/\s+/g, ' ').trim()
 
+const SENTENCE_END = /[.!?:]['"\u2019\u201D)\]]*$/u
+// "4.7 Results", "4.7.1. Treatment", "IV. Discussion", "A. Appendix"
+const NUMBERED_HEADING = /^(\d+(\.\d+)*\.?|[IVXLC]+\.|[A-Z]\.)\s+\p{Lu}/u
+const STARTS_BLOCK = /^[\p{Lu}\p{N}\u2022\u2013*([]/u
+
+// PDF viewers end every visual line with a newline, also inside paragraphs. A paragraph or heading
+// ends where a line is clearly shorter than the full lines around it and the next line starts a new block.
+function splitBlocks (text) {
+  const lines = text.split('\n').map((line) => line.trim())
+  const lengths = lines.filter(Boolean).map((line) => line.length).sort((a, b) => a - b)
+  const fullLength = lengths[Math.floor((lengths.length - 1) * 0.75)] || 0
+  const isShort = (line) => line.length < fullLength * 0.8
+
+  const blocks = []
+  let current = []
+  const flush = (heading = false) => {
+    if (current.length) blocks.push({ text: current.join('\n'), heading: heading && current.length === 1 })
+    current = []
+  }
+
+  lines.forEach((line, i) => {
+    if (!line) return flush()
+    const next = lines[i + 1] || ''
+    const previous = current[current.length - 1]
+    const startsBlock = current.length === 0
+    const isHeading = isShort(line) && !SENTENCE_END.test(line) && STARTS_BLOCK.test(next) &&
+      (NUMBERED_HEADING.test(line) || (startsBlock && /^\p{Lu}/u.test(line)))
+
+    // A numbered heading right after a full last line of a paragraph.
+    if (isHeading && previous && SENTENCE_END.test(previous)) flush()
+    current.push(line)
+
+    const endsParagraph = isShort(line) && SENTENCE_END.test(line) && STARTS_BLOCK.test(next)
+    if (isHeading || endsParagraph) flush(isHeading)
+  })
+  flush()
+  return blocks
+}
+
+const cleanBlock = (block) => collapseWhitespace(joinHyphenatedWords(block))
+
 function cleanText (text, mode = MODES.SINGLE_LINE) {
   if (mode === MODES.PLAIN) return text
 
-  const joined = joinHyphenatedWords(normalize(text))
+  const normalized = normalize(text)
 
   if (mode === MODES.PARAGRAPHS) {
-    return joined
-      .split(/\n[ \t]*\n/)
-      .map(collapseWhitespace)
-      .filter(Boolean)
-      .join('\n\n')
+    // One line per paragraph, plus an empty line before every heading except the first block.
+    return splitBlocks(normalized)
+      .map((block) => ({ ...block, text: cleanBlock(block.text) }))
+      .filter((block) => block.text)
+      .map((block, i) => (i > 0 && block.heading ? '\n' : '') + block.text)
+      .join('\n')
   }
 
-  return collapseWhitespace(joined)
+  return cleanBlock(normalized)
 }
 
 module.exports = { MODES, cleanText }
