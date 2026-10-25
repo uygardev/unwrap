@@ -89,7 +89,10 @@
               "NSStringPboardType"
             ],
             "NSUserData": "deepl",
-            "NSRequiredContext": {}
+            "NSRequiredContext": {},
+            "NSKeyEquivalent": {
+              "default": "X"
+            }
           }
         ]
       }

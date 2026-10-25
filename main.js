@@ -7,9 +7,12 @@ const { sendToDeepL } = require('./deepl')
 
 const isMac = process.platform === 'darwin'
 
-// Key equivalent of the "Copy without Line Breaks" service (NSKeyEquivalent "C" in package.json). macOS only
-// uses a Services shortcut where the frontmost app has no ⇧⌘C of its own, so it never overrides one.
-const COPY_SHORTCUT_LABEL = '⇧⌘C'
+// Key equivalents of the Services menu items (NSKeyEquivalent "C" and "X" in package.json), shown in the menu.
+// macOS only uses a Services shortcut where the frontmost app has no shortcut of its own for those keys.
+const SERVICE_SHORTCUTS = [
+  { label: 'Copy without Line Breaks', accelerator: 'Shift+Command+C' },
+  { label: 'Translate with DeepL', accelerator: 'Shift+Command+X' }
+]
 
 // Must match NSPortName of the NSServices entries in package.json.
 const SERVICES_PORT = 'PasteWithoutLineBreaks'
@@ -140,10 +143,9 @@ function buildTrayMenu () {
   })
 
   tray.setContextMenu(Menu.buildFromTemplate([
-    {
-      label: `Copy without Line Breaks: ${COPY_SHORTCUT_LABEL}`,
-      enabled: false
-    },
+    { label: 'Select text, then press or right-click:', enabled: false },
+    // Only displayed: macOS handles these keys through the Services menu.
+    ...SERVICE_SHORTCUTS.map(({ label, accelerator }) => ({ label, accelerator, registerAccelerator: false, enabled: false })),
     ...(trusted ? [] : [{
       label: 'Allow Accessibility Access for DeepL…',
       click: () => {

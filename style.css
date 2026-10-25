@@ -45,3 +45,7 @@ blockquote {
 }
 
 li { margin-bottom: 4px; }
+
+.shortcuts { border-collapse: collapse; margin: 4px 0 8px; }
+.shortcuts td { padding: 4px 12px 4px 0; vertical-align: top; }
+.shortcuts td:first-child { white-space: nowrap; }

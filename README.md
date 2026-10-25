@@ -20,15 +20,17 @@ permission. If they don't show up right after installing, open the app once, or 
 them off, or give them your own keyboard shortcut, in System Settings › Keyboard › Keyboard Shortcuts › Services ›
 Text.
 
-### Keyboard shortcut
+### Keyboard shortcuts
 
-Select text and press **⇧⌘C** (Shift + Command + C) to run **Copy without Line Breaks**; a normal ⌘C keeps
-working as usual. It is a Services shortcut, so it needs no permission, and in apps that have their own ⇧⌘C
-(for example Word's Copy Formatting) that one keeps working and Unwrap stays out of the way. ⌃⌘C is deliberately
-not used: DeepL takes it for DeepL Write.
+Select text and press:
 
-You can change it, or add one for **Translate with DeepL without Line Breaks**, in System Settings › Keyboard ›
-Keyboard Shortcuts › Services › Text.
+- **⇧⌘C** (Shift + Command + C): **Copy without Line Breaks**
+- **⇧⌘X** (Shift + Command + X): **Translate with DeepL without Line Breaks**
+
+A normal ⌘C keeps working as usual. These are Services shortcuts, so they need no permission of their own, and in
+apps that have their own ⇧⌘C or ⇧⌘X (for example Word's Copy Formatting) that one keeps working and Unwrap stays
+out of the way. ⌃⌘C is deliberately not used: DeepL takes it for DeepL Write. You can change both in System
+Settings › Keyboard › Keyboard Shortcuts › Services › Text. The menu bar menu lists them too.
 
 Menu bar (¶) options:
 
