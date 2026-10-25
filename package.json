@@ -8,7 +8,8 @@
     "start": "electron .",
     "test": "node --test",
     "build:native": "node scripts/build-native.js",
-    "dist": "npm run build:native && electron-builder --mac"
+    "dist": "npm run build:native && electron-builder --mac",
+    "build:icons": "python3 scripts/draw-icons.py && sh scripts/build-icons.sh"
   },
   "repository": {
     "type": "git",
@@ -43,13 +44,13 @@
       "index.html",
       "style.css",
       "icon.png",
-      "assets/**",
+      "assets/trayTemplate*.png",
       "native/index.js",
       "native/macos_services.node"
     ],
     "mac": {
       "category": "public.app-category.productivity",
-      "icon": "icon.icns",
+      "icon": "assets/Unwrap.icon",
       "target": [
         {
           "target": "dmg",

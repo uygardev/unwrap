@@ -62,7 +62,12 @@ npm start      # run from source
 npm test       # cleaning rules
 npm run build:native   # compile the Services menu module (native/), needed once before npm start
 npm run dist   # build dist/Unwrap-<version>.dmg (universal: Apple Silicon + Intel)
+npm run build:icons    # after changing scripts/draw-icons.py; needs rsvg-convert (brew install librsvg)
 ```
+
+`npm run dist` needs Xcode 26 or later: the app icon is an Icon Composer file (`assets/Unwrap.icon`), which
+electron-builder compiles with Xcode's `actool`, so macOS draws it with its own icon shape and Liquid Glass.
+`scripts/draw-icons.py` is the source of the icon, its PNG fallback (`icon.png`) and the menu bar icon.
 
 After a rebuild, macOS may ask for the Accessibility permission (used only for DeepL) again because the app
 is ad-hoc signed.
