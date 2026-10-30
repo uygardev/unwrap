@@ -40,7 +40,8 @@ Menu bar (¶) options:
 - **Keep Paragraphs and Headings**: wrapped lines are joined, every heading and paragraph stays on its own
   line, with an empty line after each paragraph (a heading stays right above its paragraph). In PDFs, a
   paragraph ends at a clearly short line ending with `.` `!` `?` or `:`; headings are short lines like
-  `4.7.1 Treatment and Follow-up Support`.
+  `4.7.1 Treatment and Follow-up Support`. List items (`•`, `–`, `-`, `*`, `1.`, `1)`, `(a)`, `(iv)`, …) each
+  start a new line and the items of a list stay together; Word's Symbol-font bullets become `•`.
 - **Only Remove Styles**: plain text, line breaks untouched.
 - **Also Clean Every ⌘C Copy**: clean every copy automatically. Files, images and passwords copied from
   password managers are never touched.

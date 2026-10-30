@@ -94,3 +94,45 @@ test('cleans a real copy from a PDF viewer', () => {
     'features as a node in a graph. This method outperformed standard CNN and RNN approaches in ' +
     'accuracy, F1-score, precision, and recall.')
 })
+
+test('starts every list item on its own line and keeps the list together', () => {
+  const input = [
+    'The model has three parts, which are described in detail in the following sections of this',
+    'chapter:',
+    '• an encoder that reads the',
+    'input sequence,',
+    ' an attention layer',
+    '•',
+    'a decoder',
+    'After the list, the paragraph continues with a long enough line of text to set the',
+    'full line length.'
+  ].join('\n')
+  assert.equal(cleanText(input, MODES.PARAGRAPHS), [
+    'The model has three parts, which are described in detail in the following sections of this chapter:',
+    '',
+    '• an encoder that reads the input sequence,',
+    '• an attention layer',
+    '• a decoder',
+    '',
+    'After the list, the paragraph continues with a long enough line of text to set the full line length.'
+  ].join('\n'))
+})
+
+test('recognises numbered and lettered list items', () => {
+  const input = '1. Collect the data\n2. Train the model on the\ncollected data\n3) Evaluate\n(a) first\n(iv) fourth\n- dash item'
+  assert.equal(cleanText(input, MODES.PARAGRAPHS),
+    '1. Collect the data\n2. Train the model on the collected data\n3) Evaluate\n(a) first\n(iv) fourth\n- dash item')
+})
+
+test('does not mistake negative numbers or numbered headings for list items', () => {
+  const input = [
+    '1 Introduction',
+    'Earlier studies of facial expressions in psychotic disorders reported a correlation of',
+    '-0.42 between the two scores, which the present study set out to replicate.'
+  ].join('\n')
+  assert.equal(cleanText(input, MODES.PARAGRAPHS), [
+    '1 Introduction',
+    'Earlier studies of facial expressions in psychotic disorders reported a correlation of ' +
+      '-0.42 between the two scores, which the present study set out to replicate.'
+  ].join('\n'))
+})
